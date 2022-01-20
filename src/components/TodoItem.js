@@ -1,9 +1,15 @@
 function TodoItem(props) {
+  const onComplete = () => {
+    alert('it is completed ' + props.text);
+  }
+  const onDelete = () => {
+    alert('it is deleted ' + props.text);
+  }
   return(
     <li>
-      <span>c</span>
+      <span onClick={onComplete}>c</span>
       <p>{props.text}</p>
-      <span>x</span>
+      <span onClick={onDelete}>x</span>
     </li>
   )
 }

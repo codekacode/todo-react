@@ -1,7 +1,13 @@
 
 function CreateTodoButton() {
+  const onClickEvent = (msg) => {
+    alert(msg);
+  }
+
   return(
-    <button>
+    <button
+      onClick={()=>onClickEvent('Aqui es el modal')}  
+    >
       +
     </button>
   )
