@@ -36,6 +36,29 @@ function App() {
     });
   }
 
+  // marcar competado
+  const completeTodo = (text) => {
+    const todosIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    //no podemos entrar a editar directamente los stados, solo con setState
+    newTodos[todosIndex].completed = true;
+    // todos[todosIndex] = {
+    //   text: todos[todosIndex].text,
+    //   completed: true
+    // }
+    setTodos(newTodos);
+  }
+
+  // marcar eliminar
+  const deleteTodo = (text) => {
+    const todosIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    //no podemos entrar a editar directamente los stados, solo con setState
+    newTodos.splice(todosIndex,1);
+    setTodos(newTodos);
+  }
+
+
   return (
     <>
       <TodoCounter 
@@ -48,7 +71,12 @@ function App() {
       />
       <TodoList>
         {searchedTodos.map(todo => (
-          <TodoItem key={todo.id} text={todo.text}/>
+          <TodoItem 
+            key={todo.id} 
+            text={todo.text}
+            onCompleted={() => completeTodo(todo.text)} 
+            onDelete={() => deleteTodo(todo.text)} 
+          />
         ))}
       </TodoList>
       <CreateTodoButton/> 
