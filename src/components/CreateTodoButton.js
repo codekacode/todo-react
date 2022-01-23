@@ -1,5 +1,5 @@
 
-function CreateTodoButton() {
+function CreateTodoButton(props) {
   const onClickEvent = (msg) => {
     alert(msg);
   }

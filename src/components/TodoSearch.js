@@ -1,13 +1,22 @@
+import {useState} from 'react';
+
 function TodoSearch() {
-  const onChangeInput = (event) => {
-    console.log(event.target.value)
+
+  const [searchValue, setSearchValue] = useState('');
+
+  const onSearchValueChange = (event) => {
+    console.log(event.target.value);
+    setSearchValue(event.target.value);
   }
-  return(
+
+  return[
     <input 
       placeholder="hola"
-      onChange={onChangeInput}
-    />
-  )
+      value={searchValue}
+      onChange={onSearchValueChange}
+    />,
+    <p>{searchValue}</p>
+  ]
 }
 
 export default TodoSearch
