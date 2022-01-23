@@ -1,8 +1,6 @@
 import {useState} from 'react';
 
-function TodoSearch() {
-
-  const [searchValue, setSearchValue] = useState('');
+function TodoSearch({searchValue, setSearchValue}) {
 
   const onSearchValueChange = (event) => {
     console.log(event.target.value);
