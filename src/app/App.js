@@ -2,16 +2,25 @@
 import {useState} from 'react';
 import AppUI from './AppUI';
 
-const defaultTodos = [ 
-  {id: 1, text: "Cortar cebolla", completed: false},
-  {id: 2, text: "Cortar tomate", completed: false},
-  {id: 3, text: "Cortar papa", completed: true},
-  {id: 4, text: "Cortar pollo", completed: false},
-]
+// const defaultTodos = [ 
+//   {id: 1, text: "Cortar cebolla", completed: false},
+//   {id: 2, text: "Cortar tomate", completed: false},
+//   {id: 3, text: "Cortar papa", completed: true},
+//   {id: 4, text: "Cortar pollo", completed: false},
+// ]
 
 function App() {
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
 
-  const [todos, setTodos] = useState(defaultTodos);
+  if (!localStorageTodos){
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos)
+  }
+
+  const [todos, setTodos] = useState(parsedTodos);
   const [searchValue, setSearchValue] = useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -30,6 +39,12 @@ function App() {
     });
   }
 
+  const saveTodosLs = (newTodos) => {
+    const stringifiedTodos = JSON.stringify(newTodos);
+    localStorage.setItem('TODOS_V1', stringifiedTodos);
+    setTodos(newTodos);
+  }
+
   // marcar competado
   const completeTodo = (text) => {
     const todosIndex = todos.findIndex(todo => todo.text === text);
@@ -40,7 +55,7 @@ function App() {
     //   text: todos[todosIndex].text,
     //   completed: true
     // }
-    setTodos(newTodos);
+    saveTodosLs(newTodos);
   }
 
   // marcar eliminar
@@ -49,7 +64,7 @@ function App() {
     const newTodos = [...todos];
     //no podemos entrar a editar directamente los stados, solo con setState
     newTodos.splice(todosIndex,1);
-    setTodos(newTodos);
+    saveTodosLs(newTodos);
   }
 
 
