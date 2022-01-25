@@ -9,18 +9,39 @@ import AppUI from './AppUI';
 //   {id: 4, text: "Cortar pollo", completed: false},
 // ]
 
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos;
+function useLocalStorage(itemName, initialValue){
 
-  if (!localStorageTodos){
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
-    parsedTodos = [];
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+
+  if (!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
-    parsedTodos = JSON.parse(localStorageTodos)
+    parsedItem = JSON.parse(localStorageItem)
   }
 
-  const [todos, setTodos] = useState(parsedTodos);
+  const [item, setItem] = useState(parsedItem);
+
+
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  }
+
+  return [
+    item,
+    saveItem,
+  ]
+
+  return
+}
+
+function App() {
+
+  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []); // podemos guardar Todos_v1 como itemName
+  
   const [searchValue, setSearchValue] = useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -39,12 +60,6 @@ function App() {
     });
   }
 
-  const saveTodosLs = (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1', stringifiedTodos);
-    setTodos(newTodos);
-  }
-
   // marcar competado
   const completeTodo = (text) => {
     const todosIndex = todos.findIndex(todo => todo.text === text);
@@ -55,7 +70,7 @@ function App() {
     //   text: todos[todosIndex].text,
     //   completed: true
     // }
-    saveTodosLs(newTodos);
+    saveTodos(newTodos);
   }
 
   // marcar eliminar
@@ -64,7 +79,7 @@ function App() {
     const newTodos = [...todos];
     //no podemos entrar a editar directamente los stados, solo con setState
     newTodos.splice(todosIndex,1);
-    saveTodosLs(newTodos);
+    saveTodos(newTodos);
   }
 
 
