@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 
 function useLocalStorage(itemName, initialValue){
 
+  initialValue=[{id: 1, text: "Cortar cebolla", completed: false}]
+
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
     const [item, setItem] = useState(initialValue);

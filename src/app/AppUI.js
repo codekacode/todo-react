@@ -4,7 +4,9 @@ import TodoSearch from '../components/TodoSearch';
 import TodoList from '../components/TodoList';
 import CreateTodoButton from '../components/CreateTodoButton';
 import { TodoContext } from './TodoContext';
-import { useContext } from 'react/cjs/react.development';
+import { useContext } from 'react';
+import {Modal} from '../modal'
+
 
 function AppUI() {
 
@@ -12,13 +14,13 @@ function AppUI() {
             loading,
             searchedTodos,
             completeTodo,
-            deleteTodo } = useContext(TodoContext);
+            deleteTodo,
+            openModal,
+            setOpenModal } = useContext(TodoContext);
     return (
         <>
             <TodoCounter />
             <TodoSearch />
-
-    
                 <TodoList>
                     {error && <p>Hay error</p>}
                     {loading && <p>Estamos caargando la app</p>}
@@ -32,8 +34,14 @@ function AppUI() {
                     />
                     ))}
                 </TodoList>
-            <CreateTodoButton/> 
-          
+                {!!openModal && (
+                    <Modal>
+                        <p>Hola aqui modal</p>
+                    </Modal>
+                ) }
+            <CreateTodoButton
+                setOpenModal={setOpenModal}
+            /> 
         </>
       );
 

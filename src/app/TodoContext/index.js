@@ -1,4 +1,4 @@
-import react from "react";
+
 import React, { useState } from "react";
 import useLocalStorage from "./useLocalStorage";
 
@@ -11,8 +11,9 @@ function TodoProvider(props){
         saveItem: saveTodos, 
         loading,
         error} = useLocalStorage('TODOS_V1', []); // podemos guardar Todos_v1 como itemName
-      
+  
       const [searchValue, setSearchValue] = useState('');
+      const [openModal,setOpenModal] = useState(false);
     
       const completedTodos = todos.filter(todo => !!todo.completed).length;
       const totalTodos = todos.length;
@@ -64,6 +65,8 @@ function TodoProvider(props){
             searchedTodos,
             completeTodo,
             deleteTodo,
+            openModal,
+            setOpenModal,
         }}>
             {props.children}
         </TodoContext.Provider>
