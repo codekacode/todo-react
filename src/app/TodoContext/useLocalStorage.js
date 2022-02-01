@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 function useLocalStorage(itemName, initialValue){
 
-  initialValue=[{id: 1, text: "Cortar cebolla", completed: false}]
+  
 
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -26,7 +26,7 @@ function useLocalStorage(itemName, initialValue){
           setError(error)
         }
       }, 1000)
-    }, [])
+    }, initialValue)
   
   
     const saveItem = (newItem) => {
@@ -37,14 +37,14 @@ function useLocalStorage(itemName, initialValue){
       } catch (error) {
         setError(error)
       }
-    }
+    };
   
     return {
       item,
       saveItem,
       loading,
       error,
-    }
+    };
       
   }
 

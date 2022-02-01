@@ -3,9 +3,10 @@ import TodoItem from '../components/TodoItem';
 import TodoSearch from '../components/TodoSearch';
 import TodoList from '../components/TodoList';
 import CreateTodoButton from '../components/CreateTodoButton';
-import { TodoContext } from './TodoContext';
+import { TodoContext } from './TodoContext/index';
 import { useContext } from 'react';
 import {Modal} from '../modal'
+import { TodoForm } from '../components/TodoForm';
 
 
 function AppUI() {
@@ -36,7 +37,7 @@ function AppUI() {
                 </TodoList>
                 {!!openModal && (
                     <Modal>
-                        <p>Hola aqui modal</p>
+                        <TodoForm></TodoForm>
                     </Modal>
                 ) }
             <CreateTodoButton

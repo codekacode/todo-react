@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
-import useLocalStorage from "./useLocalStorage";
+import useLocalStorage from "./useLocalStorage"
+
 
 const TodoContext = React.createContext();
 
@@ -30,6 +31,15 @@ function TodoProvider(props){
           return todoText.includes(searchText);
         });
       }
+
+      const addTodo = (text) => {
+        const newTodos = [...todos];
+        newTodos.push({
+          completed:false,
+          text
+        });
+        saveTodos(newTodos)
+      };
     
       // marcar competado
       const completeTodo = (text) => {
@@ -65,8 +75,10 @@ function TodoProvider(props){
             searchedTodos,
             completeTodo,
             deleteTodo,
+            addTodo,
             openModal,
             setOpenModal,
+            
         }}>
             {props.children}
         </TodoContext.Provider>

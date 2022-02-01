@@ -1,4 +1,4 @@
-import { TodoProvider } from './TodoContext';
+import { TodoProvider } from './TodoContext/index';
 import AppUI from './AppUI';
 
 // const defaultTodos = [ 
